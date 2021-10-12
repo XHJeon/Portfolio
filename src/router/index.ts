@@ -1,15 +1,16 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
-import Home from "../views/Home.vue";
+import EventList from "../views/EventList.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: "/",
-    name: "Home",
-    component: Home,
+    path: "/", // url
+    name: "EventList", // name of the route
+    component: EventList, // which "view" component to render
   },
   {
     path: "/about",
     name: "About",
+    // Performance Optimization
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.

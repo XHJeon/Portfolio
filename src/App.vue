@@ -1,8 +1,10 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
+    <!-- which path to navigate to -->
+    <router-link to="/">Events</router-link> |
     <router-link to="/about">About</router-link>
   </div>
+  <!-- replaced by route's component -->
   <router-view />
 </template>
 
@@ -26,5 +28,9 @@
       color: #42b983;
     }
   }
+}
+
+h4 {
+  font-size: 20px;
 }
 </style>
