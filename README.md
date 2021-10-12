@@ -1,9 +1,10 @@
-# Tutorials
+## References
 
 + [Creating a Vue project using Vue CLI](https://cli.vuejs.org/guide/creating-a-project.html#vue-create)
 + [Installing vuetify using Vue CLI](https://vuetifyjs.com/en/getting-started/installation/)
 + [Installing vue-i18n using Vue CLI](https://kazupon.github.io/vue-i18n/installation.html)
 + [Adding the project to GitHub](https://docs.github.com/es/github/importing-your-projects-to-github/importing-source-code-to-github/adding-an-existing-project-to-github-using-the-command-line)
++ [Creating a fake online REST server](https://my-json-server.typicode.com/)
 + [Deploying from GitHub using Render](https://cli.vuejs.org/guide/deployment.html#general-guidelines)
     + [Connecting GitHub with Render](https://render.com/docs/github)
 + [Adding custom domains in Render](https://render.com/docs/custom-domains)
@@ -80,5 +81,14 @@ then renders the differences without ever reloading the page.
 
 ## API Calls with Axios
 We don't want data to be hard-coded. We want to be fetching the data with and API Call where we make a request to our
-server for the data, and the server sends back a response with the data as JSON, then we take data and set it to
+server for the data, the server sends back a response with the data as JSON, and then we take data and set it to
 display.
+
+### Axios
+- GET, POST, PUT, and DELETE requests
+- Add authentication to each request
+- Set timeouts if requests take too long
+- Configure defaults for every request
+- Intercept requests to create middleware
+- Handle errors and cancel requests properly
+- Properly serialize and deserialize requests & responses
