@@ -1,8 +1,13 @@
 <template>
-  <div class="eventCard">
-    <span>@ {{ event.time }} on {{ event.date }}</span>
-    <h4>{{ event.title }}</h4>
-  </div>
+  <router-link
+    class="eventLink"
+    :to="{ name: 'EventDetails', params: { id: event.id } }"
+  >
+    <div class="eventCard">
+      <span>@ {{ event.time }} on {{ event.date }}</span>
+      <h4>{{ event.title }}</h4>
+    </div>
+  </router-link>
 </template>
 
 <script lang="ts">
@@ -27,5 +32,9 @@ export default defineComponent({
 .eventCard:hover {
   transform: scale(1.01);
   box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2);
+}
+.eventLink {
+  color: #2c3e50;
+  text-decoration: none;
 }
 </style>
