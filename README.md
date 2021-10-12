@@ -92,3 +92,15 @@ display.
 - Intercept requests to create middleware
 - Handle errors and cancel requests properly
 - Properly serialize and deserialize requests & responses
+
+
+## Deploying with Render
+To consider for deployment:
+- Find a web hosting service
+- Get SSL for a secure domain
+- Build the site locally
+- Drop those files into the server
+- Ensure its served correctly
+
+Once deployed you have to maintain it, add features, fix bugs, a nd ensure emergency rollbacks.
+
