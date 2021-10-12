@@ -3,11 +3,27 @@
     <h1>Events For Good</h1>
     <img alt="Vue logo" src="../assets/logo.png" />
     <EventCard v-for="event in events" :key="event.id" :event="event" />
+    <div class="pagination">
+      <router-link
+        id="page-prev"
+        v-if="page !== 1"
+        :to="{ name: 'EventList', query: { page: page - 1 } }"
+        rel="prev"
+        >&#60; Prev</router-link
+      >
+      <router-link
+        id="page-next"
+        v-if="hasNextPAge"
+        :to="{ name: 'EventList', query: { page: page + 1 } }"
+        rel="next"
+        >Next &#62;</router-link
+      >
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref, onMounted, watchEffect, computed } from "vue";
 import EventCard from "@/components/EventCard.vue"; // @ is an alias to /src
 import EventService from "@/services/EventService";
 
@@ -16,21 +32,42 @@ export default defineComponent({
   components: {
     EventCard,
   },
-  setup() {
+  props: {
+    page: {
+      default: 1,
+      type: Number,
+    },
+  },
+  setup(props) {
     const events = ref(null);
+    const totalEvents = ref(0);
+
+    const hasNextPAge = computed(() => {
+      // Find the total number of pages
+      let totalPages = Math.ceil(totalEvents.value) / 2;
+      // If this page is not the las page
+      return props.page < totalPages;
+    });
 
     onMounted(() => {
-      EventService.getEvents()
-        .then((response) => {
-          events.value = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      // When reactive objects that are accessed inside this function change, run this function again
+      watchEffect(() => {
+        // Clear out the events on the page, so our user knows the API has been called
+        events.value = null;
+        EventService.getEvents(2, props.page)
+          .then((response) => {
+            events.value = response.data;
+            totalEvents.value = parseInt(response.headers["x-total-count"]);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      });
     });
 
     return {
       events,
+      hasNextPAge,
     };
   },
 });
@@ -41,5 +78,20 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.pagination {
+  display: flex;
+  width: 290px;
+}
+.pagination a {
+  flex: 1;
+  text-decoration: none;
+  color: #2c3e50;
+}
+#page-prev {
+  text-align: left;
+}
+#page-next {
+  text-align: right;
 }
 </style>

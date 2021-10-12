@@ -149,6 +149,3 @@ props: {
     show: Boolean
 }
 ```
-
-
-## Building pagination

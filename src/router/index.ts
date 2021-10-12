@@ -10,6 +10,10 @@ const routes: Array<RouteRecordRaw> = [
     name: "EventList",
     // which "view" component to render
     component: EventList,
+    props: (route) => ({
+      page:
+        typeof route.query.page == "string" ? parseInt(route.query.page) : 1,
+    }),
   },
   {
     path: "/events/:id",
