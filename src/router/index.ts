@@ -4,13 +4,17 @@ import EventDetails from "../views/EventDetails.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: "/", // url
-    name: "EventList", // name of the route
-    component: EventList, // which "view" component to render
+    // url
+    path: "/",
+    // name of the route
+    name: "EventList",
+    // which "view" component to render
+    component: EventList,
   },
   {
     path: "/events/:id",
     name: "EventDetails",
+    // send in route parameters as component props
     props: true,
     component: EventDetails,
   },

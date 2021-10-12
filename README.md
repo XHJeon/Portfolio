@@ -104,3 +104,51 @@ To consider for deployment:
 
 Once deployed you have to maintain it, add features, fix bugs, a nd ensure emergency rollbacks.
 
+
+## Receiving URL Parameters
+
+Use a Route parameter as Props
+```
+{
+    path: '/events/:page',
+    component: Events,
+    props: true
+}
+
+props: {
+    page: Number
+}
+```
+
+Props Object Mode
+```
+{
+    path: '/',
+    name: 'Home',
+    component: Home,
+    props: { show: true }
+}
+
+props: {
+    show: Boolean
+}
+```
+
+Props Function Mode
+```
+http://localhost:8080/?e=true
+
+{
+    path: '/',
+    name: 'Home',
+    component: Home,
+    props: (route) => ({ show: route.query.e })
+}
+
+props: {
+    show: Boolean
+}
+```
+
+
+## Building pagination
