@@ -5,7 +5,7 @@
 
 <script>
 import { defineComponent } from "vue";
-import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "Register",
@@ -13,14 +13,14 @@ export default defineComponent({
     event: Object,
   },
   setup() {
-    const route = useRoute();
+    const router = useRouter();
 
     function register() {
       // Call to API
       // If registered then redirect to event details
 
       // Both EventRegister and EventDetails have an :id parameter, which will be used be default when navigating
-      route.push({
+      router.push({
         name: "EventDetails",
       });
     }
