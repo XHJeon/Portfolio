@@ -4,6 +4,7 @@
     <img alt="Vue logo" src="../assets/logo.png" />
     <EventCard v-for="event in events" :key="event.id" :event="event" />
     <div class="pagination">
+      <!-- When you call router-link it's calling this.$router.push from inside the router-link definition -->
       <router-link
         id="page-prev"
         v-if="page !== 1"

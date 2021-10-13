@@ -149,3 +149,22 @@ props: {
     show: Boolean
 }
 ```
+
+## Programmatic Navigation
+
+### Using Replace instead of Push to Navigate
+To navigate without pushing a history entry into the browser (effectively disabling the back button)
+
+### Navigating the History Stack with Go
+You can programmatically invoke the browser back and forward buttons with:
+```
+this.$router.go(1)
+
+Goes forward (like your browser's forward button)
+```
+```
+this.$router.go(-1)
+
+Goes backward (like your browser's backward button)
+```
+Could be useful for building a native app where you have custom back & forward buttons.
