@@ -27,6 +27,7 @@
 import { defineComponent, ref, onMounted, watchEffect, computed } from "vue";
 import EventCard from "@/components/EventCard.vue"; // @ is an alias to /src
 import EventService from "@/services/EventService";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "EventList",
@@ -40,6 +41,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const router = useRouter();
     const events = ref(null);
     const totalEvents = ref(0);
 
@@ -60,8 +62,8 @@ export default defineComponent({
             events.value = response.data;
             totalEvents.value = parseInt(response.headers["x-total-count"]);
           })
-          .catch((error) => {
-            console.log(error);
+          .catch(() => {
+            router.push({ name: "NetworkError" });
           });
       });
     });

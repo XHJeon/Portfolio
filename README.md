@@ -168,3 +168,14 @@ this.$router.go(-1)
 Goes backward (like your browser's backward button)
 ```
 Could be useful for building a native app where you have custom back & forward buttons.
+
+
+## Error Handling and 404s
+
+### 3 Common Error We Need to Account For
+- When user tries to navigate to a page that doesn't exist.
+  - When a path doesn't exist, load a NotFound component.
+- When user navigates to a resource that doesn't exist.
+  - When an event doesn't exist, load a NotFound component.
+- When user's network connectivity fails.
+  - When the network fails, let's load a NetworkError component.

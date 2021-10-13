@@ -4,6 +4,8 @@ import EventLayout from "../views/event/Layout.vue";
 import EventDetails from "../views/event/Details.vue";
 import EventRegister from "../views/event/Register.vue";
 import EventEdit from "../views/event/Edit.vue";
+import NotFound from "../views/event/NotFound.vue";
+import NetworkError from "../views/event/NetworkError.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -52,6 +54,24 @@ const routes: Array<RouteRecordRaw> = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
+  },
+  {
+    // Match all routes that don't match an existing route
+    path: "/:catchAll(.*)",
+    name: "NotFound",
+    component: NotFound,
+  },
+  {
+    path: "/404/:resource",
+    name: "404Resource",
+    component: NotFound,
+    props: true,
+  },
+  {
+    path: "/network-error",
+    name: "NetworkError",
+    component: NetworkError,
+    props: true,
   },
 ];
 

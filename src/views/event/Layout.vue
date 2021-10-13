@@ -17,6 +17,7 @@
 <script>
 import { defineComponent, ref, onMounted } from "vue";
 import EventService from "../../services/EventService";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "Layout",
@@ -24,6 +25,7 @@ export default defineComponent({
     id: Number,
   },
   setup(props) {
+    const router = useRouter();
     const event = ref(null);
 
     onMounted(() => {
@@ -32,7 +34,16 @@ export default defineComponent({
           event.value = response.data;
         })
         .catch((error) => {
-          console.log(error);
+          if (error.response && error.response.status == 404) {
+            // If the event doesn't exist, load 404
+            router.push({
+              name: "404Resource",
+              params: { resource: "event" },
+            });
+          } else {
+            // Otherwise assume network error
+            router.push({ name: "NetworkError" });
+          }
         });
     });
 
