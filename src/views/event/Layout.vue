@@ -1,17 +1,25 @@
 <template>
   <div v-if="event">
     <h1>{{ event.title }}</h1>
-    <p>{{ event.time }} on {{ event.date }} @ {{ event.location }}</p>
-    <p>{{ event.description }}</p>
+    <div id="nav">
+      <!-- Since :id is required for each child path -->
+      <!-- If :id isn't sent in, it will look and use the :id param that is present -->
+      <router-link :to="{ name: 'EventDetails' }"> Details </router-link>
+      |
+      <router-link :to="{ name: 'EventRegister' }"> Register </router-link>
+      |
+      <router-link :to="{ name: 'EventEdit' }"> Edit </router-link>
+    </div>
+    <router-view :event="event" />
   </div>
 </template>
 
 <script>
 import { defineComponent, ref, onMounted } from "vue";
-import EventService from "../services/EventService";
+import EventService from "../../services/EventService";
 
 export default defineComponent({
-  name: "EventDetails",
+  name: "Layout",
   props: {
     id: Number,
   },
