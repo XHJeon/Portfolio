@@ -179,3 +179,14 @@ Could be useful for building a native app where you have custom back & forward b
   - When an event doesn't exist, load a NotFound component.
 - When user's network connectivity fails.
   - When the network fails, let's load a NetworkError component.
+
+
+## Flash Messages
+
+### Problem: No Message when Registering for an Event
+- Create a global storage mechanism to store a flach message
+  - Isn't this what Vuex is for? Yes, but thanks to Vue 3 we have another solution if we don't need Vuex. 
+    We can create a reactive object to usa as Global Storage, and share that object across our app.
+    Reactive means that when the object is updated, any Component that uses the object is re-rendered.
+- Set the flash message inside Register.vue
+- Create a place where flash message is displayed

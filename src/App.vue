@@ -1,14 +1,47 @@
 <template>
-  <div id="nav">
-    <!-- which path to navigate to -->
-    <router-link :to="{ name: 'EventList' }">Events</router-link> |
-    <router-link :to="{ name: 'About' }">About</router-link>
+  <div id="app">
+    <div id="flashMessage" v-if="GStore.flashMessage">
+      {{ GStore.flashMessage }}
+    </div>
+    <div id="nav">
+      <!-- which path to navigate to -->
+      <router-link :to="{ name: 'EventList' }">Events</router-link> |
+      <router-link :to="{ name: 'About' }">About</router-link>
+    </div>
+    <!-- replaced by route's component -->
+    <router-view />
   </div>
-  <!-- replaced by route's component -->
-  <router-view />
 </template>
 
+<script>
+import { defineComponent, inject } from "vue";
+
+export default defineComponent({
+  setup() {
+    const GStore = inject("GStore");
+
+    return {
+      GStore,
+    };
+  },
+});
+</script>
+
 <style lang="scss">
+@keyframes yellowFade {
+  from {
+    background: yellow;
+  }
+  to {
+    background: transparent;
+  }
+}
+
+#flashMessage {
+  animation-name: yellowFade;
+  animation-duration: 3s;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
