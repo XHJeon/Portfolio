@@ -1,4 +1,9 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import {
+  createRouter,
+  createWebHistory,
+  RouteLocationNormalized,
+  RouteRecordRaw,
+} from "vue-router";
 import GStore from "@/store";
 import NProgress from "nprogress";
 import EventService from "../services/EventService";
@@ -63,6 +68,9 @@ const routes: Array<RouteRecordRaw> = [
         path: "edit",
         name: "EventEdit",
         component: EventEdit,
+        // This is a simple JavaScript object with information about the route
+        // Meta gets inherited by children routes
+        meta: { requireAuth: true },
       },
     ],
   },
@@ -74,6 +82,7 @@ const routes: Array<RouteRecordRaw> = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
+      // Store this JavaScript in a file named "about"
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
   {
@@ -99,13 +108,42 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+  // Upon navigation, always move the page to the top
+  scrollBehavior() {
+    // if (savedPosition) {
+    //   return savedPosition;
+    // } else {
+    return { top: 0 };
+    // }
+  },
 });
 
-router.beforeEach(() => {
-  NProgress.start();
-});
+router.beforeEach(
+  (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
+    NProgress.start();
+
+    // Now a constant but likely to be a function that checks if the user is authorized
+    const notAuthorized = true;
+    if (to.meta.requireAuth && notAuthorized) {
+      // Let the user know
+      GStore.flashMessage = "Sorry, you are not authorized to view this page";
+
+      setTimeout(() => {
+        GStore.flashMessage = "";
+      }, 3000);
+
+      // If there is a previous page
+      if (from.path !== "/") {
+        return false;
+      } else {
+        return { path: "/" };
+      }
+    }
+  }
+);
 
 router.afterEach(() => {
   NProgress.done();
 });
+
 export default router;

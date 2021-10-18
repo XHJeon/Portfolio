@@ -260,7 +260,7 @@ router.afterEach((to, from) => { ... })
 ```
 Called after navigation is complete.
 
-## Vue Router Guards Calling Order
+### Vue Router Guards Calling Order
 
 1. router.beforeEach((to, from) => { ... })
 2. beforeEnter(routeTo, routeFrom) { ... }
@@ -270,3 +270,12 @@ Called after navigation is complete.
 6. beforeCreate()
 7. created()
 8. ...
+
+
+## Wrapping Up
+
+### 3 Important Features of Vue Router
+- Route Meta Fields: Allow us to introduce extra information with our routes
+- Lazy Loading Routes: Split parts of our application into different Javascript files
+- Scroll Behavior: To make our navigation more user-friendly
+  - How to force Vue to scroll to the top of the page when we navigate?
