@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import EventList from "../views/EventList.vue";
+import EventList from "../views/event/List.vue";
 import EventLayout from "../views/event/Layout.vue";
 import EventDetails from "../views/event/Details.vue";
 import EventRegister from "../views/event/Register.vue";
@@ -16,8 +16,7 @@ const routes: Array<RouteRecordRaw> = [
     // which "view" component to render
     component: EventList,
     props: (route) => ({
-      page:
-        typeof route.query.page == "string" ? parseInt(route.query.page) : 1,
+      page: parseInt(String(route.query.page)) || 1,
     }),
   },
   {

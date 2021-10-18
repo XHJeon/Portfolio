@@ -159,14 +159,13 @@ To navigate without pushing a history entry into the browser (effectively disabl
 You can programmatically invoke the browser back and forward buttons with:
 ```
 this.$router.go(1)
-
+```
 Goes forward (like your browser's forward button)
 ```
-```
 this.$router.go(-1)
-
-Goes backward (like your browser's backward button)
 ```
+Goes backward (like your browser's backward button)
+
 Could be useful for building a native app where you have custom back & forward buttons.
 
 
@@ -190,3 +189,53 @@ Could be useful for building a native app where you have custom back & forward b
     Reactive means that when the object is updated, any Component that uses the object is re-rendered.
 - Set the flash message inside Register.vue
 - Create a place where flash message is displayed
+
+
+## In-Component Route Guards
+
+### Problem: When Internet is Slow Our Page Hangs
+We can solve this by using a progress bar with either:
+- In-Component Route Guards
+  - Move API call into an In-Component Route Guard
+  - Install nprogress, progress bar library
+  - Start progress bar when routing to the component
+  - Finish the progress bar when API call finishes
+  - Ensure that pagination still works
+- Global & Per-Route Guards
+
+### Introducing 3 In-Component Route Hooks by Vue Router
+These are additional lifecycle hooks, like created, mounted, and updated.
+```
+beforeRouterEnter(routeTo, routeFrom, next)
+```
+Called before the component is created, with no access to *this*.
+```
+beforeRouterUpdate(routeTo, routeFrom, next)
+```
+Called when route changes, but the component has not. Has access to *this*.
+```
+beforeRouterLeave(routeTo, routeFrom, next)
+```
+Called when route is navigated away from. Has access to *this*.
+
+- routeTo: The route that is about to get navigated to.
+- routeFrom: The route that is about to be navigated away from.
+- next: A function used to resolve the hook and continue navigation.
+
+```
+next() or return true
+```
+Continue navigation to the component listed in routeTo.
+```
+next(false) or return false
+```
+Cancel the navigation.
+```
+next('/') or return '/'
+```
+Redirect to the / path
+```
+next({ name: 'EventList' }) or return  { name: 'EventList' }
+```
+Redirect to the named path.
+
