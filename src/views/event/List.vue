@@ -27,7 +27,6 @@
 import { defineComponent, ref, computed, onMounted, watchEffect } from "vue";
 import EventCard from "@/components/EventCard.vue"; // @ is an alias to /src
 import EventService from "@/services/EventService";
-import NProgress from "nprogress";
 import { onBeforeRouteUpdate, useRouter } from "vue-router";
 
 export default defineComponent({
@@ -53,37 +52,18 @@ export default defineComponent({
       return props.page < totalPages;
     });
 
-    // onBeforeRouteUpdate((routeTo) => {
-    //   NProgress.start();
-    //   EventService.getEvents(2, parseInt(String(routeTo.query.page)) || 1)
-    //     .then((response) => {
-    //       events.value = response.data;
-    //       totalEvents.value = parseInt(response.headers["x-total-count"]);
-    //     })
-    //     .catch(() => {
-    //       return { name: "NetworkError" };
-    //     })
-    //     .finally(() => {
-    //       NProgress.done();
-    //     });
-    // });
-
     onMounted(() => {
       // When reactive objects that are accessed inside this function change, run this function again
       watchEffect(() => {
-        NProgress.start();
         // Clear out the events on the page, so our user knows the API has been called
         events.value = null;
-        EventService.getEvents(2, props.page)
+        return EventService.getEvents(2, props.page)
           .then((response) => {
             events.value = response.data;
             totalEvents.value = parseInt(response.headers["x-total-count"]);
           })
           .catch(() => {
             router.push({ name: "NetworkError" });
-          })
-          .finally(() => {
-            NProgress.done();
           });
       });
     });
@@ -93,27 +73,6 @@ export default defineComponent({
       hasNextPAge,
     };
   },
-  // beforeRouteEnter(routeTo, routeFrom, next) {
-  //   NProgress.start();
-  //   // Parse the page number from the route we're navigating to
-  //   EventService.getEvents(2, parseInt(String(routeTo.query.page)) || 1)
-  //     .then((response) => {
-  //       // Continue routing and once component is loaded, set these values
-  //       // I'm using comp (as in component). In the docs you'll see vm (as in View Model)
-  //       next((comp: any) => {
-  //         comp.events = response.data;
-  //         comp.totalEvents = parseInt(response.headers["x-total-count"]);
-  //         return true;
-  //       });
-  //     })
-  //     .catch(() => {
-  //       // If the API fails, load the NetworkError page
-  //       next({ name: "NetworkError" });
-  //     })
-  //     .finally(() => {
-  //       NProgress.done();
-  //     });
-  // },
 });
 </script>
 

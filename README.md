@@ -239,3 +239,34 @@ next({ name: 'EventList' }) or return  { name: 'EventList' }
 ```
 Redirect to the named path.
 
+
+## Global and Per-Route Guards
+
+### Introducing 3 Global Navigation Guards
+Each called whenever a navigation is triggered.
+
+```
+router.beforeEach((to, from) => { ... })
+```
+Called before each navigation, and before in-component guards.
+
+```
+router.beforeResolve((to, from) => { ... })
+```
+Called before each navigation, but after in-component guards.
+
+```
+router.afterEach((to, from) => { ... })
+```
+Called after navigation is complete.
+
+## Vue Router Guards Calling Order
+
+1. router.beforeEach((to, from) => { ... })
+2. beforeEnter(routeTo, routeFrom) { ... }
+3. beforeRouteEnter(routeTo, routeFrom) { ... }
+4. router.beforeResolve((to, from) => { ... })
+5. router.afterEach((to, from) => { ... })
+6. beforeCreate()
+7. created()
+8. ...
