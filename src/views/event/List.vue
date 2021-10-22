@@ -1,7 +1,7 @@
 <template>
   <div class="events">
     <h1>Events For Good</h1>
-    <img alt="Vue logo" src="src/assets/logo.png" />
+    <img alt="Vue logo" src="../../assets/logo.png" />
     <EventCard v-for="event in events" :key="event.id" :event="event" />
     <div class="pagination">
       <!-- When you call router-link it's calling this.$router.push from inside the router-link definition -->
